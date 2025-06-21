@@ -1,20 +1,23 @@
 class Date:
-    def init(self, day, month, year):
-        if month < 1 or month > 12:
-            raise ValueError("неправильний місяць (1-12)")
-        if day < 1 or day > 31:
-            raise ValueError("неправильний день (1-31)")
+    def __init__(self, day, month, year):
         self.day = day
         self.month = month
         self.year = year
+        self._validate_date()
+        
+    def _validate_date(self):
+        if self.month < 1 or self.month > 12:
+            raise ValueError("Місяць має бути від 1 до 12")
+        if self.day < 1 or self.day > 31:
+            raise ValueError("День має бути від 1 до 31")
 
-    def str(self):
+    def __str__(self):
         return f"{self.day}.{self.month}.{self.year}"
 
-    def eq(self, other):
+    def __eq__(self, other):
         return (self.day, self.month, self.year) == (other.day, other.month, other.year)
 
-    def lt(self, other):
+    def __lt__(self, other):
         return (self.year, self.month, self.day) < (other.year, other.month, other.day)
 
     def is_leap_year(self): #високосний рік
@@ -26,7 +29,7 @@ class Date:
         else:
             return year % 400 == 0
 
-if name == "main": #дати
+if __name__ == "__main__": #дати
     d1 = Date(15, 5, 2023)
     d2 = Date(20, 5, 2023)
 
